@@ -1,0 +1,101 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+$gradientWhite: linear-gradient(#555, #888);
+
+body{
+    background-color: #ffffff;
+    font-family: sans-serif;
+
+    .initial-table{
+        background-color: #555555;
+        margin: auto;
+        margin-top: 20px;
+        box-shadow: 0px 0px 20px #555555;
+        border-collapse: collapse;
+
+        .table-head{
+            background-color: #ff0000;
+
+            .table-head-row{
+
+                .table-head-heading{
+                    box-shadow: 0px 0px 50px #333333;
+                    background-color: #444444;
+                    font-size: 1.1rem;
+                    font-weight: 400;
+                    color: #ffffff;
+                    text-transform: uppercase;
+                    padding: 10px;
+                    text-align: left;
+
+                    &:first-child{
+                        color: #222222;
+                        background-color: #dddddd;
+                    }
+                    &:nth-child(2){
+                        background-color: #40c6de;
+                    }
+                    &:last-child{
+                        background-color: #017da0;
+                    }
+                }
+            }
+        }
+        
+        .table-body{
+
+            .table-row{
+                background-color: #ffffff;
+
+                // &:nth-of-type(odd){
+                //     background-color: #f2f2f2;
+
+                //     .table-td-id{
+                //             font-size: 1.2rem;
+                //             background-color: #029055;
+                //             border-top: 1px solid #029055;
+                //             color: #ffffff;
+                //         }
+                // }
+                // &:nth-of-type(even){
+                //     background-color: #ffffff;
+
+                //     .table-td-id{
+                //             font-size: 1.2rem;
+                //             background-color: #03bd6f;
+                //             border-top: 1px solid #03bd6f;
+                //             color: #ffffff;
+                //         }
+                // }
+                .table-td{
+                    padding: 12px 15px;
+                    box-shadow: 0px 0px 20px #333333;
+                }
+                .table-td-id{
+                //     font-size: 1.2rem;
+                    background-color: #f1f1f1;
+                    border-top: 1px solid #999999;
+                    box-shadow: 0px 0px 10px #333333;
+                //     color: #ffffff;
+                }
+                .table-td-name{
+                //     font-size: 1.2rem;
+                background-color: #49eaff;
+                border-top: 1px solid #40b6de;
+                //     color: #111111;
+            }
+            .table-td-city{
+                //     font-size: 1.2rem;
+                background-color: #0890b8;
+                border-top: 1px solid #0385a9;
+                //     color: #222222;
+                }
+            }    
+        }
+
+    }
+}
