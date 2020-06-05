@@ -6,96 +6,151 @@
 
 $gradientWhite: linear-gradient(#555, #888);
 
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&family=Source+Sans+Pro:ital@0;1&display=swap');
+
+
 body{
     background-color: #ffffff;
-    font-family: sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
 
-    .initial-table{
-        background-color: #555555;
-        margin: auto;
-        margin-top: 20px;
-        box-shadow: 0px 0px 20px #555555;
-        border-collapse: collapse;
+    .container{
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
 
-        .table-head{
-            background-color: #ff0000;
+        .container-table{
+            grid-column: 1 / 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
-            .table-head-row{
+            .initial-table{
+                background-color: #555555;
+                box-shadow: 0px 0px 20px #555555;
+                border-collapse: collapse;
 
-                .table-head-heading{
-                    box-shadow: 0px 0px 50px #333333;
-                    background-color: #444444;
-                    font-size: 1.1rem;
-                    font-weight: 400;
-                    color: #ffffff;
-                    text-transform: uppercase;
-                    padding: 10px;
-                    text-align: left;
 
-                    &:first-child{
-                        color: #222222;
-                        background-color: #dddddd;
+                .table-head{
+                    background-color: #ff0000;
+
+                    .table-head-row{
+
+                        .table-head-heading{
+                            box-shadow: 0px 0px 20px #333333;
+                            background-color: #444444;
+                            font-size: 1.4rem;
+                            font-weight: 400;
+                            color: #ffffff;
+                            text-transform: uppercase;
+                            padding: 15px 20px;
+                            text-align: left;
+                            position: relative;
+
+                            &::after{
+                                content: '';
+                                position: absolute;
+                                width: 0;
+                                height: 0;
+                                border-left: 5px solid transparent;
+                                border-right: 5px solid transparent;
+                                border-top: 7px solid #ffffff;
+                                background-color: transparent;
+                                right: 10px;
+                                top: 50%;
+                                transition: border-top .3s ease;
+                            }
+                        }
+                        .table-head-id{
+                            color: #ffffff;
+                            background-color: #444444;
+                            min-width: 70px;
+                        }
+                        .table-head-name{
+                            background-color: #40c6de;
+                            min-width: 300px;
+                        }
+                        .table-head-city{
+                            background-color: #017da0;
+                            min-width: 200px;
+                        }
+                        .table-head-income{
+                            min-width: 140px;
+                        }
+
+                        .table-head-sort {
+                            &::after{
+                                border-top: 7px solid #001155;
+                            }
+                        }
                     }
-                    &:nth-child(2){
-                        background-color: #40c6de;
+                }
+                
+                .table-body{
+
+                    .table-row{
+                        background-color: #ffffff;
+
+                        .table-td{
+                            padding: 15px 20px;
+                            box-shadow: 0px 0px 20px #333333;
+                        }
+                        .table-td-id{
+                            background-color: #f1f1f1;
+                            border-top: 1px solid #999999;
+                            box-shadow: 0px 0px 10px #333333;
+                            min-width: 70px;
+                        }
+                        .table-td-name{
+                            background-color: #49eaff;
+                            border-top: 1px solid #40b6de;
+                            min-width: 300px;
+                        }
+                        .table-td-city{
+                            background-color: #0890b8;
+                            border-top: 1px solid #0385a9;
+                            min-width: 200px;
+                        }
+                        .table-td-valueAll{
+                            min-width: 140px;
+                        }
+                    }   
+                    .table-row-non-active{
+                        display: none;
+                    } 
+                }
+
+            }
+            .table-index-box{
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(10, 1fr);
+                
+                .number-button{
+                    width: 50px;
+                    height: 50px;
+                    border: 5px solid #00cccc;
+                    background-color: #ffffff;
+                    margin: 10px;
+                    box-shadow: 0px 0px 10px #000000;
+                    border-radius: 10px;
+                    font-size: 1.3rem;
+                    background-color: #00e1ff;
+                    transition: background-color .5s ease, border-color .5s ease;
+
+                    &:focus{
+                        background-color: #ffffff;
+                        outline: 0;
                     }
-                    &:last-child{
-                        background-color: #017da0;
+
+                    &-active{
+                        background-color: #036681 !important;
+                        border-color: #024b5f;
                     }
                 }
             }
         }
-        
-        .table-body{
-
-            .table-row{
-                background-color: #ffffff;
-
-                // &:nth-of-type(odd){
-                //     background-color: #f2f2f2;
-
-                //     .table-td-id{
-                //             font-size: 1.2rem;
-                //             background-color: #029055;
-                //             border-top: 1px solid #029055;
-                //             color: #ffffff;
-                //         }
-                // }
-                // &:nth-of-type(even){
-                //     background-color: #ffffff;
-
-                //     .table-td-id{
-                //             font-size: 1.2rem;
-                //             background-color: #03bd6f;
-                //             border-top: 1px solid #03bd6f;
-                //             color: #ffffff;
-                //         }
-                // }
-                .table-td{
-                    padding: 12px 15px;
-                    box-shadow: 0px 0px 20px #333333;
-                }
-                .table-td-id{
-                //     font-size: 1.2rem;
-                    background-color: #f1f1f1;
-                    border-top: 1px solid #999999;
-                    box-shadow: 0px 0px 10px #333333;
-                //     color: #ffffff;
-                }
-                .table-td-name{
-                //     font-size: 1.2rem;
-                background-color: #49eaff;
-                border-top: 1px solid #40b6de;
-                //     color: #111111;
-            }
-            .table-td-city{
-                //     font-size: 1.2rem;
-                background-color: #0890b8;
-                border-top: 1px solid #0385a9;
-                //     color: #222222;
-                }
-            }    
-        }
-
     }
 }
