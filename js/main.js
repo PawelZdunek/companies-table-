@@ -108,7 +108,7 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
 
     const tableIndexBox = document.querySelector('.table-index-box')
 
-    for(let i = 1; i <= (300 / maxNumber); i++){
+    for(let i = 1; i <= (data.length / maxNumber); i++){
         let numberButton = document.createElement('button');
         numberButton.innerHTML = i;
         tableIndexBox.appendChild(numberButton)
@@ -148,18 +148,119 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
         buttonOne.classList.add('number-button-active')   
     }
     
-        tableHeadId.addEventListener('click', removeClass)
-        tableHeadName.addEventListener('click', removeClass)
-        tableHeadCity.addEventListener('click', removeClass)
-        tableHeadIncome.addEventListener('click', removeClass)
+    tableHeadId.addEventListener('click', removeClass)
+    tableHeadName.addEventListener('click', removeClass)
+    tableHeadCity.addEventListener('click', removeClass)
+    tableHeadIncome.addEventListener('click', removeClass)
 
+    function checkDate() {
+        const contentId = document.querySelector('.content-id-p').innerHTML
+        const goodTable = lolo.find(e => e.id == contentId);
+
+        const startDateValue = document.querySelector('#start-date').value
+        const endDateValue = document.querySelector('#end-date').value
+        
+        const incomesTable = goodTable.value;
+        
+        const onlyData = incomesTable.map(e => {
+            const elementData = e.date
+            const elementDateTable = elementData.split('T');
+            e.date = elementDateTable[0]
+            return e
+        })
+        
+        const goodDateIncomes = onlyData.filter(e => {
+            return e.date > startDateValue && e.date < endDateValue; 
+        })
+        
+        const totalIncome = goodDateIncomes.reduce((acc, e) => {
+            return acc + Number(e.value)
+        }, 0)
+
+        const averageIncom = totalIncome.toFixed(2) / goodDateIncomes.length
+        
+        const totalDateIncome = document.querySelector('.content-total-date-income-p')
+        totalDateIncome.innerHTML = totalIncome.toFixed(2)
+        
+        const averageDateIncome = document.querySelector('.content-average-date-income-p')
+        if (averageIncom){
+            averageDateIncome.innerHTML = averageIncom.toFixed(2)
+        } else {
+            averageDateIncome.innerHTML = '0.00';
+        }
+
+    }
+    const startDate = document.querySelector('#start-date')
+    const endDate = document.querySelector('#end-date')
+    startDate.addEventListener('change', checkDate)
+    endDate.addEventListener('change', checkDate)
+
+
+    const nowData = new Date();
+    const nowYear = nowData.getFullYear();
+    const nowMounth = nowData.getMonth() + 1;
+
+    function findData() {
+        
+        const thisId = this.querySelector('.table-td-id').innerHTML
+        
+        const finalObject = lolo.find(e => e.id == thisId)
+
+        const boxId = document.querySelector('.content-id-p')
+        boxId.innerHTML = finalObject.id
+
+        const boxName = document.querySelector('.content-name-p')
+        boxName.innerHTML = finalObject.name
+
+        const boxCity = document.querySelector('.content-city-p')
+        boxCity.innerHTML = finalObject.city
+
+        const boxTotalIncome = document.querySelector('.content-total-income-p')
+        boxTotalIncome.innerHTML = finalObject.valueAll
+
+        const valueTable = finalObject.value
+
+        // valueTable.filter((a, b) => {
+
+        // })
+
+        const onlyData = valueTable.map(e => {
+            const elementData = e.date
+            const elementDateTable = elementData.split('T');
+            e.date = elementDateTable[0]
+            return e
+        })
+
+        const sortedData = onlyData.filter(e =>  {
+            const dateTable = e.date.split('-') 
+            const year = Number(dateTable[0])
+            const mounth = Number(dateTable[1])
+            return mounth === 1 && year === nowYear;
+            // return mounth === (nowMounth - 1) && year === nowYear;
+        })    
+        
+
+        const sortedDataSum = sortedData.reduce((acc, e) => {
+            return acc + Number(e.value);
+        }, 0)
+
+        const averageIncome =  finalObject.valueAll / valueTable.length;
+
+        const boxAverageIncome = document.querySelector('.content-average-income-p');
+        boxAverageIncome.innerHTML = (averageIncome).toFixed(2);
+
+        const boxLastMounthIncome = document.querySelector('.content-last-mounth-income-p');
+        boxLastMounthIncome.innerHTML = (sortedDataSum).toFixed(2);
+
+    }
+    
     function sortById() {
         if(this !== undefined){
             maxNumberId = maxNumber;
             // tableHeadId.classList.toggle('sorte-by')
         }
 
-        holo
+        const resultOfSort = holo
         .sort((a, b) => {
             const aValue = Number(a.querySelector('.table-td-id').innerHTML)
             const bValue = Number(b.querySelector('.table-td-id').innerHTML)
@@ -176,6 +277,10 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
             }
         })
         .map(element => tableBody.appendChild(element))
+
+        resultOfSort.forEach(e => {
+            e.addEventListener('click', findData)
+        })
     }
 
     tableHeadId.addEventListener('click', sortById)
@@ -186,7 +291,7 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
             // tableHeadName.classList.toggle('sorte-by')
         }
 
-        holo
+        const resultOfSort = holo
         .sort((a, b) => {
             const aValue = a.querySelector('.table-td-name').innerHTML
             const bValue = b.querySelector('.table-td-name').innerHTML
@@ -203,6 +308,10 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
             }
         })
         .map(element => tableBody.appendChild(element))
+
+        resultOfSort.forEach(e => {
+            e.addEventListener('click', findData)
+        })
     }
 
     tableHeadName.addEventListener('click', sortByName)
@@ -213,7 +322,7 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
             // tableHeadCity.classList.toggle('sorte-by')
         }
 
-        holo
+        const resultOfSort = holo
         .sort((a, b) => {
             const aValue = a.querySelector('.table-td-city').innerHTML
             const bValue = b.querySelector('.table-td-city').innerHTML
@@ -230,18 +339,22 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
             }
         })
         .map(element => tableBody.appendChild(element))
+
+        resultOfSort.forEach(e => {
+            e.addEventListener('click', findData)
+        })
     }
 
     tableHeadCity.addEventListener('click', sortByCity)
 
 
-    function sortByIncome() {
+    function sortByIncome(start) {
         if(this !== undefined){
             maxNumberIncome = maxNumber;
             // tableHeadIncome.classList.toggle('sorte-by')
         }
 
-        holo
+        const resultOfSort = holo
         .sort((a, b) => {
             const aValue = a.querySelector('.table-td-valueAll').innerHTML
             const bValue = b.querySelector('.table-td-valueAll').innerHTML
@@ -258,6 +371,11 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
             }
         })
         .map(element => tableBody.appendChild(element))
+
+        resultOfSort.forEach(e => {
+            e.addEventListener('click', findData)
+        })
+
     }
 
     tableHeadIncome.addEventListener('click', sortByIncome)
@@ -267,5 +385,7 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
     
     // console.log(rows)
 
+    // console.log(lolo)
+    // console.log(holo)
 
 }))
