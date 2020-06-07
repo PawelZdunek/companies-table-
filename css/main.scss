@@ -1,3 +1,5 @@
+@import "_mediaquery.scss";
+
 *{
     margin: 0;
     padding: 0;
@@ -11,30 +13,103 @@ $gradientWhite: linear-gradient(#555, #888);
     100%{opacity: 1; transform: translate(0);}
 }
 
+@keyframes loadAnimationOne {
+    0%{
+        transform: translate(50%) rotate(0deg);
+        border-radius: 50%;
+        background-color: #005469;
+    }
+    50%{
+        border-radius: 0;
+    }
+    100%{
+        transform: translate(50%) rotate(360deg);
+        border-radius: 50%;
+        background-color: #005469;
+    }
+}
+
+@keyframes loadAnimationTwo {
+    0%{
+        transform: translate(-50%) rotate(0deg);
+        border-radius: 50%;
+        background-color: #005469;
+    }
+    50%{
+        border-radius: 0;
+    }
+    100%{
+        transform: translate(-50%) rotate(-360deg);
+        border-radius: 50%;
+        background-color: #005469;
+    }
+}
+
+@keyframes lineFlyFirst {
+    0%{transform: translate(-100%);}
+    50%{transform: translate(500%);}
+    100%{transform: translate(500%);}
+}
+
+@keyframes lineFlySecond {
+    0%{transform: translate(100%);}
+    50%{transform: translate(100%);}
+    100%{transform: translate(-500%);}
+}
+
+@keyframes lineFlyThird {
+    0%{transform: translate(-100%);}
+    50%{transform: translate(-100%);}
+    100%{transform: translate(500%);}
+}
+
+@keyframes lineFlyFourth {
+    0%{transform: translate(100%);}
+    50%{transform: translate(-500%);}
+    100%{transform: translate(-500%);}
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&family=Source+Sans+Pro:ital@0;1&display=swap');
 
 
 body{
     background-color: #ffffff;
     font-family: 'Source Sans Pro', sans-serif;
+    overflow: hidden;
 
     .container{
-        width: 100%;
+        width: 100vw;
         height: 100vh;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        overflow: hidden;
+        position: relative;
 
+        @include breakpoint(tablet){
+            grid-template-columns: repeat(1, 1fr);
+
+        }
         .container-table{
             grid-column: 1 / 2;
             display: flex;
             flex-direction: column;
             justify-content: start;
             align-items: stretch;
+            background-color: #cccccc;
+
+            @include breakpoint(tablet){
+                // overflow: hidden;
+            }
 
             .initial-table{
                 background-color: #555555;
                 box-shadow: 0px 0px 30px #555555;
                 border-collapse: collapse;
+                min-height: 70%;
+
+                @include breakpoint(mobile){
+                    min-height: 60%;
+                }
 
 
                 .table-head{
@@ -54,6 +129,18 @@ body{
                             position: relative;
                             z-index: 2;
 
+                            @include breakpoint(laptop){
+                                padding: 15px 10px;
+                            }
+
+                            @include breakpoint(litleTablet){
+                                padding: 3px 10px 10px;
+                            }
+
+                            @include breakpoint(mobile){
+                                padding: 0px 5px 8px;
+                            }
+
                             &::after{
                                 content: '';
                                 position: absolute;
@@ -66,23 +153,30 @@ body{
                                 right: 10px;
                                 top: 50%;
                                 transition: border-top .3s ease;
+
+                                @include breakpoint(laptop){
+                                    top: auto;
+                                    bottom: 5px;
+                                    right: 50%;
+                                    transform: translateX(50%);
+                                }
+
+                                @include breakpoint(mobile){
+                                    bottom: 3px;
+                                }
                             }
                         }
                         .table-head-id{
                             color: #ffffff;
                             background-color: #444444;
-                            min-width: 70px;
                         }
                         .table-head-name{
                             background-color: #40c6de;
-                            min-width: 300px;
                         }
                         .table-head-city{
                             background-color: #017da0;
-                            min-width: 200px;
                         }
                         .table-head-income{
-                            min-width: 140px;
                         }
 
                         .table-head-sort {
@@ -102,25 +196,32 @@ body{
                             padding: 15px 20px;
                             box-shadow: 0px 0px 20px #333333;
                             animation: fade .5s ease ;
+
+                            @include breakpoint(laptop){
+                                padding: 7px 10px;
+                            }
+
+                            @include breakpoint(mobile){
+                                padding: 0px 4px;
+                                font-size: .75rem;
+                            }
                         }
                         .table-td-id{
                             background-color: #f1f1f1;
                             border-top: 1px solid #999999;
                             box-shadow: 0px 0px 10px #333333;
-                            min-width: 70px;
+
+                            
                         }
                         .table-td-name{
                             background-color: #49eaff;
                             border-top: 1px solid #40b6de;
-                            min-width: 300px;
                         }
                         .table-td-city{
                             background-color: #0890b8;
                             border-top: 1px solid #0385a9;
-                            min-width: 200px;
                         }
                         .table-td-valueAll{
-                            min-width: 140px;
                         }
                     }   
                     .table-row-non-active{
@@ -131,20 +232,83 @@ body{
             .table-index-box{
                 width: 100%;
                 display: grid;
-                grid-template-columns: repeat(10, 1fr);
-                box-shadow: 0px 0px 20px #000000;
+                grid-template-columns: repeat(11, 1fr);
+                // box-shadow: 0px 0px 20px #000000;
+                background-color: #444444;
+                border: 2px solid #000000;
+                border-right: 0;
+                min-height: 30%;
                 
+                @include breakpoint(laptop){
+                    grid-template-columns: repeat(8, 1fr);
+                }
+
+                @include breakpoint(mobile){
+                    min-height: 40%;
+        
+                }
+
+                .table-index-title{
+                    position: relative;
+                    grid-column: 1 / span 3;
+                    grid-row: 1 / span 1;
+
+                    @include breakpoint(laptop){
+                        grid-column: 1 / span 2;
+                    }
+                }
+
+                p {
+                    display: inline-block;
+                    font-size: 1.8rem;
+                    color: #eeeeee;
+                    background-color: #222222;
+                    border-bottom-right-radius: 15px;
+                    padding: 5px;
+                    margin-right: 5px;
+                    margin-bottom: 10px;
+                    border: 2px solid #000000;
+                    border-left: 0;
+                    border-top: 0;
+
+                    @include breakpoint(laptop){
+                        grid-column: 1 / span 2;
+                        font-size: 1.3rem;
+                    }
+
+                    @include breakpoint(litleTablet){
+                        font-size: .95rem;
+                    }
+                }
                 .number-button{
                     width: 50px;
                     height: 50px;
                     border: 5px solid #00cccc;
-                    background-color: #ffffff;
                     margin: 10px;
                     box-shadow: 0px 0px 10px #000000;
                     border-radius: 10px;
                     font-size: 1.3rem;
                     background-color: #00e1ff;
                     transition: background-color .5s ease, border-color .5s ease;
+
+                    @include breakpoint(laptop){
+                        width: 40px;
+                        height: 40px;
+                        margin: 5px;
+                    }
+
+                    @include breakpoint(mobile){
+                        width: 35px;
+                        height: 35px;
+                        margin: 5px 5px; 
+                    }
+
+                    @include breakpoint(litleMobile){
+                        width: 30px;
+                        height: 30px;
+                        margin: 5px 5px; 
+                        font-size: 1.1rem;
+                    }
 
                     &:focus{
                         background-color: #ffffff;
@@ -160,14 +324,32 @@ body{
         }
         .container-content{
             border-left: 3px solid #000000;
-            background-color: #ddffff;
+            background-color: #222222;
             width: 100%;
             height: 100%;
             padding: 30px;
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             grid-template-rows: repeat(3, 1fr);
-            grid-gap: 5px;
+            grid-gap: 15px;
+
+            @include breakpoint(laptop){
+                padding: 15px;
+            }
+
+            @include breakpoint(tablet){
+                position: absolute;    
+                height: 100vh;
+                transform: translateX(100%);
+                transition: transform .5s ease;
+                z-index: 3;
+            }
+
+            @include breakpoint(mobile){
+                grid-gap: 5px;
+                padding: 5px;
+            }
+
 
             .content-box {
                 display: flex;
@@ -178,12 +360,25 @@ body{
                 span {
                     font-size: 1.5rem;
                     line-height: 150%;
+                    color: #0091bd;
                 }
 
                 p {
                     display: inline-block;
-                    border-top: 2px solid #999999;
-                    color: #222222;
+                    border-top: 2px solid #aaaaaa;
+                    color: #e0e0e0;
+                }
+
+                @include breakpoint(computer){
+                    font-size: 1.7rem;
+                }
+
+                @include breakpoint(laptop){
+                    font-size: 1.3rem;
+                }
+
+                @include breakpoint(mobile){
+                    font-size: .9rem;
                 }
             }
 
@@ -192,6 +387,14 @@ body{
                 grid-row: 1 / span 1;
                 font-size: 5rem;
                 line-height: 110%;  
+
+                @include breakpoint(computer){
+                    font-size: 3rem;
+                }
+
+                @include breakpoint(mobile){
+                    font-size: 2rem;
+                }
             }
 
             .content-name{
@@ -207,31 +410,221 @@ body{
             .content-total-income{
                 grid-column: 1 / span 2;
                 grid-row: 2 / span 1;
+
+                @include breakpoint(laptop){
+                    font-size: 1.5rem;
+                }
+
+                @include breakpoint(litleMobile){
+                    font-size: 1.3rem;
+                }
             }
 
             .content-average-income{
                 grid-column: 3 / span 2;
                 grid-row: 2 / span 1;
+
+                @include breakpoint(laptop){
+                    font-size: 1.5rem;
+                }
+
+                @include breakpoint(litleMobile){
+                    font-size: 1.3rem;
+                }
             }
 
             .content-last-mounth-income{
                 grid-column: 5 / span 2;
                 grid-row: 2 / span 1;
+
+                @include breakpoint(laptop){
+                    font-size: 1.5rem;
+                }
+
+                @include breakpoint(litleMobile){
+                    font-size: 1.3rem;
+                }
             }
 
             .content-add-date {
                 grid-column: 1 / span 2;
                 grid-row: 3 / span 1;
+
+                @include breakpoint(mobile){
+                    grid-column: 1 / span 3;
+                }
+
+                input{
+                    @include breakpoint(litleMobile){
+                        width: 120px;
+                    }
+                }
             }
 
             .content-total-date-income {
-                grid-column: 3 / span 2;
+                grid-column: 3 / span 4;
                 grid-row: 3 / span 1;
+
+                @include breakpoint(mobile){
+                    grid-column: 4 / span 3;
+                }
 
                 span {
                     font-size: 1.2rem;
+
+                    @include breakpoint(mobile){
+                        font-size: 1rem;
+                    }
+                }
+
+                p {
+                    @include breakpoint(mobile){
+                        font-size: 1.4rem;
+                    }
                 }
             }
+
+            .close-content{
+                display: none;
+                position: absolute;
+                left: 5px;
+                top: 20%;
+                width: 50px;
+                height: 50px;
+                padding: 10px;
+                border: 0;
+                background-color: #aaaaaa;
+                border-radius: 50%;
+
+                @include breakpoint(tablet){
+                    display: block;
+                }    
+
+                .button-content {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .button-line {
+                        width: 100%;
+                        height: 4px;
+                        background-color: #333333;
+                        position: relative;
+
+                        &::before, &::after {
+                            content: '';
+                            position: absolute;
+                            width: 50%;
+                            height: 4px;
+                            left: 0;
+                            top: 0;
+                            background-color: #333333;
+                            transform-origin: 0%;
+                            transform: rotate(-45deg) translateY(1px);
+                        }
+
+                        &::after {
+                            transform: rotate(45deg) translateY(-1px);
+                        }
+                    }
+                }
+            }
+        }
+        .container-content-min {
+            @include breakpoint(tablet){
+                transform: translate(0);
+            }
+        }
+
+        .container-load {
+            position: absolute;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: all;
+            transition: opacity 2s 1s ease;
+               
+            .icon-load{
+                width: 250px;
+                height: 250px;
+                background-color: #555555;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #f1f1f1;
+                font-size: 1.5rem;
+
+                @include breakpoint(litleTablet){
+                    width: 200px;
+                    height: 200px;
+                }
+
+                @include breakpoint(mobile){
+                    width: 150px;
+                    height: 150px;
+                    font-size: 1.2rem;
+                }
+            }
+
+            .icon-load-one {
+                animation: loadAnimationOne 3s linear infinite;
+            }
+
+            .icon-load-two {
+                animation: loadAnimationTwo 3s linear infinite;
+            }
+            .line-load-one {
+                position: absolute;
+                left: 0;
+                top: 20%;
+                width: 20%;
+                height: 3px;
+                background: linear-gradient(90deg, transparent, #000000);
+                animation: lineFlyFirst 2s ease infinite;
+            }
+
+            .line-load-two {
+                position: absolute;
+                right: 0;
+                top: 20%;
+                width: 20%;
+                height: 3px;
+                background: linear-gradient(90deg, #000000, transparent);
+                animation: lineFlySecond 2s ease infinite;
+            }
+
+            .line-load-three {
+                position: absolute;
+                left: 0;
+                bottom: 20%;
+                width: 20%;
+                height: 3px;
+                background: linear-gradient(90deg, transparent, #000000);
+                animation: lineFlyThird 2s ease infinite;
+                transform: translate(-100%);
+            }
+
+            .line-load-four {
+                position: absolute;
+                right: 0;
+                bottom: 20%;
+                width: 20%;
+                height: 3px;
+                background: linear-gradient(90deg, #000000, transparent);
+                animation: lineFlyFourth 2s ease infinite;
+                transform: translate(100%);
+            }
+        }
+
+        .container-load-end {
+            opacity: 0;
+            pointer-events: none;
         }
     }
 }

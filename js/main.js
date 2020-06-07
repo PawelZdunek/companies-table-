@@ -252,6 +252,13 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
         const boxLastMounthIncome = document.querySelector('.content-last-mounth-income-p');
         boxLastMounthIncome.innerHTML = (sortedDataSum).toFixed(2);
 
+        const containerContent = document.querySelector('.container-content');
+        containerContent.classList.add('container-content-min');
+
+        const buttonClosecontent = document.querySelector('.close-content');
+        buttonClosecontent.addEventListener('click' ,function() {
+            containerContent.classList.remove('container-content-min');
+        })
     }
     
     function sortById() {
@@ -380,6 +387,9 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
 
     tableHeadIncome.addEventListener('click', sortByIncome)
     sortByIncome()
+
+    const loadViev = document.querySelector('.container-load');
+    loadViev.classList.add('container-load-end')
 
     // const rows = document.querySelectorAll('.table-row')
     
