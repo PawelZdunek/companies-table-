@@ -162,11 +162,11 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
                 maxNumberNow = maxNumberNow + 1;
             }
         } else if (this === numberNext) {
-            if (maxNumberNow <= 25){
+            if (maxNumberNow <= 26){
                 maxNumberNow = maxNumberNow + 4;
             }
         } else if (this === afterNumberNext) {
-            if (maxNumberNow <= 20){
+            if (maxNumberNow <= 21){
                 maxNumberNow = maxNumberNow + 9;
             }
         }  
