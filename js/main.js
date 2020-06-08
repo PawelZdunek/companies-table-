@@ -145,11 +145,11 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
     function addNewPage() {
         if (this === beforeNumberPrevious) {
             if (maxNumberNow >= 10){
-                maxNumberNow = maxNumberNow - 10;
+                maxNumberNow = maxNumberNow - 9;
             }
         } else if (this === numberPrevious) {
-            if (maxNumberNow > 5){
-                maxNumberNow = maxNumberNow - 5;
+            if (maxNumberNow >= 5){
+                maxNumberNow = maxNumberNow - 4;
 
             }
         } else if (this === previous) {
@@ -163,11 +163,11 @@ const tableTwo = axios.all([importCompanyData, ...table]).then(axios.spread((...
             }
         } else if (this === numberNext) {
             if (maxNumberNow <= 25){
-                maxNumberNow = maxNumberNow + 5;
+                maxNumberNow = maxNumberNow + 4;
             }
         } else if (this === afterNumberNext) {
             if (maxNumberNow <= 20){
-                maxNumberNow = maxNumberNow + 10;
+                maxNumberNow = maxNumberNow + 9;
             }
         }  
         addBeforeNumberPrevious()
