@@ -2,7 +2,7 @@
 
 ## Description
 
-[Link to the project](https://zdunek-test-2.com.pl)
+[Link to the project](https://zdunek-test-2.com.pl){:target="_blank"}
 
 The project presents a table of companies. This table contains the company id, name, city and total income.
 
@@ -21,7 +21,7 @@ In addition, it is possible to display the total income and average income over 
 
 ## How To Use
 
-[Click on this link](https://zdunek-test-2.com.pl)
+[Click on this link](https://zdunek-test-2.com.pl){:target="_blank"}
 
 You can use this project by clicking the link above.
 
