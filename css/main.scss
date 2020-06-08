@@ -63,6 +63,71 @@ $gradientWhite: linear-gradient(#555, #888);
     100%{transform: translate(500%);}
 }
 
+@import "_mediaquery.scss";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+$gradientWhite: linear-gradient(#555, #888);
+
+@keyframes fade {
+    0%{opacity: 1; transform: translateY(-100%);}
+    100%{opacity: 1; transform: translate(0);}
+}
+
+@keyframes loadAnimationOne {
+    0%{
+        transform: translate(50%) rotate(0deg);
+        border-radius: 50%;
+        background-color: #005469;
+    }
+    50%{
+        border-radius: 0;
+    }
+    100%{
+        transform: translate(50%) rotate(360deg);
+        border-radius: 50%;
+        background-color: #005469;
+    }
+}
+
+@keyframes loadAnimationTwo {
+    0%{
+        transform: translate(-50%) rotate(0deg);
+        border-radius: 50%;
+        background-color: #005469;
+    }
+    50%{
+        border-radius: 0;
+    }
+    100%{
+        transform: translate(-50%) rotate(-360deg);
+        border-radius: 50%;
+        background-color: #005469;
+    }
+}
+
+@keyframes lineFlyFirst {
+    0%{transform: translate(-100%);}
+    50%{transform: translate(500%);}
+    100%{transform: translate(500%);}
+}
+
+@keyframes lineFlySecond {
+    0%{transform: translate(100%);}
+    50%{transform: translate(100%);}
+    100%{transform: translate(-500%);}
+}
+
+@keyframes lineFlyThird {
+    0%{transform: translate(-100%);}
+    50%{transform: translate(-100%);}
+    100%{transform: translate(500%);}
+}
+
 @keyframes lineFlyFourth {
     0%{transform: translate(100%);}
     50%{transform: translate(-500%);}
@@ -75,7 +140,6 @@ $gradientWhite: linear-gradient(#555, #888);
 body{
     background-color: #ffffff;
     font-family: 'Source Sans Pro', sans-serif;
-    overflow: hidden;
 
     .container{
         width: 100vw;
@@ -93,22 +157,20 @@ body{
             grid-column: 1 / 2;
             display: flex;
             flex-direction: column;
-            justify-content: start;
+            justify-content: stretch;
             align-items: stretch;
             background-color: #cccccc;
-
-            @include breakpoint(tablet){
-                // overflow: hidden;
-            }
+            height: 100%;
+            position: relative;
 
             .initial-table{
                 background-color: #555555;
-                box-shadow: 0px 0px 30px #555555;
                 border-collapse: collapse;
-                min-height: 70%;
+                height: 80%;
+                width: 100%;
 
                 @include breakpoint(mobile){
-                    min-height: 60%;
+                    min-height: 80%;
                 }
 
 
@@ -176,9 +238,6 @@ body{
                         .table-head-city{
                             background-color: #017da0;
                         }
-                        .table-head-income{
-                        }
-
                         .table-head-sort {
                             &::after{
                                 border-top: 7px solid #001155;
@@ -193,7 +252,7 @@ body{
                         background-color: #ffffff;
 
                         .table-td{
-                            padding: 15px 20px;
+                            padding: 0px 20px;
                             box-shadow: 0px 0px 20px #333333;
                             animation: fade .5s ease ;
 
@@ -231,95 +290,77 @@ body{
             }
             .table-index-box{
                 width: 100%;
-                display: grid;
-                grid-template-columns: repeat(11, 1fr);
-                // box-shadow: 0px 0px 20px #000000;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 background-color: #444444;
-                border: 2px solid #000000;
-                border-right: 0;
-                min-height: 30%;
-                
-                @include breakpoint(laptop){
-                    grid-template-columns: repeat(8, 1fr);
-                }
+                border-top: 2px solid #000000;
+                height: 20%;
 
-                @include breakpoint(mobile){
-                    min-height: 40%;
-        
-                }
+                .nav-button {
+                    margin: 5px 5px;
+                    border: 5px solid #00cccc;
+                    box-shadow: 0px 0px 10px #000000;
+                    border-radius: 35px;
+                    font-size: 1.3rem;
+                    background-color: #00e1ff;
+                    padding: 30px;
 
-                .table-index-title{
-                    position: relative;
-                    grid-column: 1 / span 3;
-                    grid-row: 1 / span 1;
-
-                    @include breakpoint(laptop){
-                        grid-column: 1 / span 2;
+                    @include breakpoint(computer){
+                        padding: 20px;
+                        border-radius: 27px;
                     }
-                }
-
-                p {
-                    display: inline-block;
-                    font-size: 1.8rem;
-                    color: #eeeeee;
-                    background-color: #222222;
-                    border-bottom-right-radius: 15px;
-                    padding: 5px;
-                    margin-right: 5px;
-                    margin-bottom: 10px;
-                    border: 2px solid #000000;
-                    border-left: 0;
-                    border-top: 0;
 
                     @include breakpoint(laptop){
-                        grid-column: 1 / span 2;
-                        font-size: 1.3rem;
+                        padding: 10px;
+                        border-radius: 15px;
+                    }
+
+                    @include breakpoint(tablet){
+                        padding: 20px; 
+                        border-radius: 30px;
                     }
 
                     @include breakpoint(litleTablet){
-                        font-size: .95rem;
-                    }
-                }
-                .number-button{
-                    width: 50px;
-                    height: 50px;
-                    border: 5px solid #00cccc;
-                    margin: 10px;
-                    box-shadow: 0px 0px 10px #000000;
-                    border-radius: 10px;
-                    font-size: 1.3rem;
-                    background-color: #00e1ff;
-                    transition: background-color .5s ease, border-color .5s ease;
-
-                    @include breakpoint(laptop){
-                        width: 40px;
-                        height: 40px;
-                        margin: 5px;
+                        padding: 9px; 
+                        border-radius: 15px;
                     }
 
                     @include breakpoint(mobile){
-                        width: 35px;
-                        height: 35px;
-                        margin: 5px 5px; 
+                        font-size: 1rem;
+                        padding: 5px;
+                        margin: 3px; 
+                        border-radius: 10px;
                     }
 
                     @include breakpoint(litleMobile){
-                        width: 30px;
-                        height: 30px;
-                        margin: 5px 5px; 
-                        font-size: 1.1rem;
-                    }
-
-                    &:focus{
-                        background-color: #ffffff;
-                        outline: 0;
-                    }
-
-                    &-active{
-                        background-color: #036681 !important;
-                        border-color: #024b5f;
+                        font-size: .9rem;
+                        padding: 4px;
+                        margin: 2px; 
+                        border-radius: 7px;
                     }
                 }
+
+                .nav-button-non-active {
+                    opacity: .5;
+                    pointer-events: none;
+                }
+
+                .exelent-number {
+                    border: 10px solid #009090;
+                    background-color: #00d9ff;
+                    font-size: 2rem;
+                    pointer-events: none;
+
+                    @include breakpoint(mobile){
+                        font-size: 1.7rem;
+                        border: 5px solid #009090;
+                    }
+                }
+
             }
         }
         .container-content{
@@ -343,6 +384,7 @@ body{
                 transform: translateX(100%);
                 transition: transform .5s ease;
                 z-index: 3;
+                border: 0;
             }
 
             @include breakpoint(mobile){
