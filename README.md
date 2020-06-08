@@ -25,4 +25,4 @@ In addition, it is possible to display the total income and average income over 
 
 You can use this project by clicking the link above.
 
-While the page is loading api a wait animation is displayed
+While the page is loading api a wait animation is displayed.
